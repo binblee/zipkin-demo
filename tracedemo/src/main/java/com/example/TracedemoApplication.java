@@ -33,7 +33,7 @@ public class TracedemoApplication {
     @RequestMapping("/")
     public String callHome(){
         LOG.log(Level.INFO, "calling trace demo backend");
-        return restTemplate.getForObject("http://localhost:8090", String.class);
+        return restTemplate.getForObject("http://backend:8090", String.class);
     }
 
     @Bean

@@ -1,0 +1,22 @@
+version: "2"
+services:
+  zipkin-server:
+    image: registry.cn-hangzhou.aliyuncs.com/jingshanlb/zipkin-demo-server
+    labels:
+      aliyun.routing.port_9411: http://zipkin
+    restart: always
+
+  frontend:
+    image: registry.cn-hangzhou.aliyuncs.com/jingshanlb/zipkin-demo-frontend
+    labels:
+      aliyun.routing.port_8080: http://frontend
+    links:
+      - zipkin-server
+      - backend
+    restart: always
+
+  backend:
+    image: registry.cn-hangzhou.aliyuncs.com/jingshanlb/zipkin-demo-backend
+    links:
+      - zipkin-server
+    restart: always
