@@ -3,7 +3,6 @@ package com.example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.sleuth.sampler.AlwaysSampler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,13 +13,19 @@ import java.util.logging.Logger;
 
 @SpringBootApplication
 @RestController
-public class TracedemoApplication {
+public class TracebackendApplication {
 
-    private static final Logger LOG = Logger.getLogger(TracedemoApplication.class.getName());
+	private static final Logger LOG = Logger.getLogger(TracebackendApplication.class.getName());
 
 	public static void main(String[] args) {
-		SpringApplication.run(TracedemoApplication.class, args);
+		SpringApplication.run(TracebackendApplication.class, args);
 	}
+
+    @RequestMapping("/")
+    public String home(){
+        LOG.log(Level.INFO, "trace demo backend is being called");
+        return "Hello World.";
+    }
 
     @Autowired
     private RestTemplate restTemplate;
@@ -28,17 +33,6 @@ public class TracedemoApplication {
     @Bean
     public RestTemplate getRestTemplate(){
         return new RestTemplate();
-    }
-
-    @RequestMapping("/")
-    public String callHome(){
-        LOG.log(Level.INFO, "calling trace demo backend");
-        return restTemplate.getForObject("http://localhost:8090", String.class);
-    }
-
-    @Bean
-    public AlwaysSampler defaultSampler(){
-        return new AlwaysSampler();
     }
 
 }
