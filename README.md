@@ -22,3 +22,7 @@ Visit [http://localhost:9411/](http://localhost:9411/) to see zipkin dashboard
 ```
 curl http://localhost:8080/callhome
 ```
+
+## Aliyun Container Service Deployment
+
+Deploy use docker-compose.yml
